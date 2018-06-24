@@ -1,0 +1,11 @@
+C:\高速工作区\OcelotTutorial\WebApiA\bin\Debug\netcoreapp2.0\WebApiA.deps.json
+C:\高速工作区\OcelotTutorial\WebApiA\bin\Debug\netcoreapp2.0\WebApiA.runtimeconfig.json
+C:\高速工作区\OcelotTutorial\WebApiA\bin\Debug\netcoreapp2.0\WebApiA.runtimeconfig.dev.json
+C:\高速工作区\OcelotTutorial\WebApiA\bin\Debug\netcoreapp2.0\WebApiA.dll
+C:\高速工作区\OcelotTutorial\WebApiA\bin\Debug\netcoreapp2.0\WebApiA.pdb
+C:\高速工作区\OcelotTutorial\WebApiA\obj\Debug\netcoreapp2.0\WebApiA.csproj.CoreCompileInputs.cache
+C:\高速工作区\OcelotTutorial\WebApiA\obj\Debug\netcoreapp2.0\WebApiA.AssemblyInfoInputs.cache
+C:\高速工作区\OcelotTutorial\WebApiA\obj\Debug\netcoreapp2.0\WebApiA.AssemblyInfo.cs
+C:\高速工作区\OcelotTutorial\WebApiA\obj\Debug\netcoreapp2.0\WebApiA.dll
+C:\高速工作区\OcelotTutorial\WebApiA\obj\Debug\netcoreapp2.0\WebApiA.pdb
+C:\高速工作区\OcelotTutorial\WebApiA\obj\Debug\netcoreapp2.0\WebApiA.csprojAssemblyReference.cache

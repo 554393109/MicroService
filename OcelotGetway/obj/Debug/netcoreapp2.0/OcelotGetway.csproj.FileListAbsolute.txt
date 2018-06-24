@@ -1,0 +1,12 @@
+C:\高速工作区\OcelotTutorial\OcelotGetway\bin\Debug\netcoreapp2.0\configuration.json
+C:\高速工作区\OcelotTutorial\OcelotGetway\bin\Debug\netcoreapp2.0\OcelotGetway.deps.json
+C:\高速工作区\OcelotTutorial\OcelotGetway\bin\Debug\netcoreapp2.0\OcelotGetway.runtimeconfig.json
+C:\高速工作区\OcelotTutorial\OcelotGetway\bin\Debug\netcoreapp2.0\OcelotGetway.runtimeconfig.dev.json
+C:\高速工作区\OcelotTutorial\OcelotGetway\bin\Debug\netcoreapp2.0\OcelotGetway.dll
+C:\高速工作区\OcelotTutorial\OcelotGetway\bin\Debug\netcoreapp2.0\OcelotGetway.pdb
+C:\高速工作区\OcelotTutorial\OcelotGetway\obj\Debug\netcoreapp2.0\OcelotGetway.csprojAssemblyReference.cache
+C:\高速工作区\OcelotTutorial\OcelotGetway\obj\Debug\netcoreapp2.0\OcelotGetway.csproj.CoreCompileInputs.cache
+C:\高速工作区\OcelotTutorial\OcelotGetway\obj\Debug\netcoreapp2.0\OcelotGetway.AssemblyInfoInputs.cache
+C:\高速工作区\OcelotTutorial\OcelotGetway\obj\Debug\netcoreapp2.0\OcelotGetway.AssemblyInfo.cs
+C:\高速工作区\OcelotTutorial\OcelotGetway\obj\Debug\netcoreapp2.0\OcelotGetway.dll
+C:\高速工作区\OcelotTutorial\OcelotGetway\obj\Debug\netcoreapp2.0\OcelotGetway.pdb

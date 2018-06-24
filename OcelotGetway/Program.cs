@@ -1,15 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.IO;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.DependencyInjection;
 using Ocelot.DependencyInjection;
 using Ocelot.Middleware;
-using Microsoft.Extensions.DependencyInjection;
 
 namespace OcelotGetway
 {
@@ -43,23 +38,5 @@ namespace OcelotGetway
                 app.UseOcelot().Wait();
             })
             .Build();
-
-
-        //public static IWebHost BuildWebHost(string[] args)
-        //{
-        //    IWebHostBuilder builder = new WebHostBuilder();
-
-        //    return builder
-        //        .ConfigureServices(service => {
-        //            service.AddSingleton(builder);
-        //        })
-        //        .ConfigureAppConfiguration(conbuilder => {
-        //            conbuilder.AddJsonFile("configuration.json");
-        //        })
-        //        .UseKestrel()
-        //        .UseUrls("http://*:5000")
-        //        .UseStartup<Startup>()
-        //        .Build();
-        //}
     }
 }

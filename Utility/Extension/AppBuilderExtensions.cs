@@ -13,15 +13,16 @@ namespace Utility
             var consulClient = new ConsulClient(x => x.Address = new Uri($"http://{serviceEntity.ConsulIP}:{serviceEntity.ConsulPort}"));
 
             var httpCheck = new AgentServiceCheck() {
-                DeregisterCriticalServiceAfter = TimeSpan.FromSeconds(5),//服务启动多久后注册
-                Interval = TimeSpan.FromSeconds(10),//健康检查时间间隔，或者称为心跳间隔
-                HTTP = $"http://{serviceEntity.IP}:{serviceEntity.Port}/api/health",//健康检查地址
+                DeregisterCriticalServiceAfter = TimeSpan.FromSeconds(10),                      //服务启动多久后注册
+                Interval = TimeSpan.FromSeconds(10),                                            //健康检查时间间隔，或者称为心跳间隔
+                HTTP = $"http://{serviceEntity.IP}:{serviceEntity.Port}/api/health",            //健康检查地址
                 Timeout = TimeSpan.FromSeconds(5)
-            };            // Register service with consul
+            };
 
+            // Register service with consul
             var registration = new AgentServiceRegistration() {
                 Checks = new[] { httpCheck },
-                ID = Guid.NewGuid().ToString(),
+                ID = Guid.Empty.ToString(),     // Guid.NewGuid().ToString(),
                 Name = serviceEntity.ServiceName,
                 Address = serviceEntity.IP,
                 Port = serviceEntity.Port,

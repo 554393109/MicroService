@@ -6,8 +6,11 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace WebApiA.Controllers
 {
+    /// <summary>
+    /// 用于服务存活检测
+    /// </summary>
     [Produces("application/json")]
-    [Route("api/Health")]
+    [Route("api/health")]
     public class HealthController : Controller
     {
         [HttpGet]

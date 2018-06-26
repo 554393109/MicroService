@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 
-namespace WebApiA.Controllers
+namespace WebApiC.Controllers
 {
     /// <summary>
     /// 用于服务存活检测
@@ -12,8 +12,8 @@ namespace WebApiA.Controllers
         [HttpGet]
         public IActionResult Get()
         {
-            return BadRequest("YZQ Error");
             return Ok("ok");
+            return BadRequest("YZQ Error");
         }
     }
 }

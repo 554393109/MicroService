@@ -36,19 +36,27 @@ namespace WebApiA
             {
                 app.UseDeveloperExceptionPage();
             }
+            else
+            {
+                app.UseHsts();
+            }
 
             app.UseHttpsRedirection();
             app.UseMvc();
 
-            ServiceEntity serviceEntity = new ServiceEntity {
+            #region 注册Consul
+
+            app.RegisterConsul(lifetime, new ServiceEntity {
+                //ServiceID = Guid.NewGuid().ToString("N"),
+                ServiceID = "0000000000000000000000000000000A",
                 IP = NetworkHelper.LocalIPAddress,
                 Port = Convert.ToInt32(Configuration["Service:Port"]),
                 ServiceName = Configuration["Service:Name"],
                 ConsulIP = Configuration["Consul:IP"],
                 ConsulPort = Convert.ToInt32(Configuration["Consul:Port"])
-            };
+            });
 
-            app.RegisterConsul(lifetime, serviceEntity);
+            #endregion 注册Consul
         }
     }
 }

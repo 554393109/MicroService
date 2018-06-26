@@ -27,27 +27,29 @@ namespace Utility
             var consulClient = new ConsulClient(x => x.Address = new Uri($"http://{serviceEntity.ConsulIP}:{serviceEntity.ConsulPort}"));
 
             var httpCheck = new AgentServiceCheck() {
-                DeregisterCriticalServiceAfter = TimeSpan.FromSeconds(10),                      //服务启动多久后注册
-                Interval = TimeSpan.FromSeconds(10),                                            //健康检查时间间隔，或者称为心跳间隔
-                HTTP = $"http://{serviceEntity.IP}:{serviceEntity.Port}/api/health",            //健康检查地址
-                Timeout = TimeSpan.FromSeconds(5)
+                Interval = TimeSpan.FromSeconds(5),                                             //健康检查时间间隔，或者称为心跳间隔
+                Timeout = TimeSpan.FromSeconds(3),
+                HTTP = $"http://{serviceEntity.IP}:{serviceEntity.Port}/Health",            //健康检查地址
+                DeregisterCriticalServiceAfter = TimeSpan.FromSeconds(10),                      //故障多久注销服务
             };
 
-            // Register service with consul
             var registration = new AgentServiceRegistration() {
-                Checks = new[] { httpCheck },
-                ID = Guid.Empty.ToString(),     // Guid.NewGuid().ToString(),
+                ID = string.IsNullOrWhiteSpace(serviceEntity.ServiceID) ? Guid.NewGuid().ToString() : serviceEntity.ServiceID,
                 Name = serviceEntity.ServiceName,
-                Address = serviceEntity.IP,
-                Port = serviceEntity.Port,
                 //添加 urlprefix-/servicename 格式的 tag 标签，以便 Fabio 识别 
-                Tags = new[] { $"urlprefix-/{serviceEntity.ServiceName}" }
+                Tags = new[] { $"urlprefix-/{serviceEntity.ServiceName}" },
+                Port = serviceEntity.Port,
+                Address = serviceEntity.IP,
+                EnableTagOverride = true,
+                Checks = new[] { httpCheck },
             };
 
             //服务启动时注册，内部实现其实就是使用 Consul API 进行注册（HttpClient发起）
             consulClient.Agent.ServiceRegister(registration).Wait();
+
             lifetime.ApplicationStopping.Register(() => {
-                //服务停止时取消注册 
+                // TODO:log
+                //服务停止时取消注册
                 consulClient.Agent.ServiceDeregister(registration.ID).Wait();
             });
 

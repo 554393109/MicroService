@@ -11,7 +11,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebApiB", "WebApiB\WebApiB.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Utility", "Utility\Utility.csproj", "{3F941772-9A41-4FCC-91DA-0DE688876B18}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApiC", "WebApiC\WebApiC.csproj", "{B33BDD38-CCE9-4B38-BA7F-C9A2911084DA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebApiC", "WebApiC\WebApiC.csproj", "{B33BDD38-CCE9-4B38-BA7F-C9A2911084DA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

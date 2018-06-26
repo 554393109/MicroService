@@ -1,0 +1,186 @@
+﻿{
+  "ReRoutes": [
+    {
+      "ReRouteIsCaseSensitive": false,
+      "DownstreamPathTemplate": "/api/Count",
+      "DownstreamScheme": "http",
+      //"DownstreamHostAndPorts": [
+      //  {
+      //    "Host": "127.0.0.1",
+      //    "Port": 5001
+      //  }
+      //],
+      // 优先级 数值大优先
+      "Priority": 1,
+      "UpstreamPathTemplate": "/count",
+      "UpstreamHttpMethod": [ "Get" ],
+      // 路由负载均衡 LeastConnection-将请求发往最空闲的那个服务器 RoundRobin-轮流发送 NoLoadBalance–总是发往第一个请求或者是服务发现
+      "LoadBalancer": "RoundRobin",
+      // 是否使用服务发现
+      "UseServiceDiscovery": true,
+      // 服务发现的服务名称
+      "ServiceName": "Count",
+      // 服务质量与熔断
+      "QoSOptions": {
+        // 允许多少个异常请求
+        "ExceptionsAllowedBeforeBreaking": 1,
+        // 熔断的时间，单位为秒
+        "DurationOfBreak": 30,
+        // 如果下游请求的处理时间超过多少则自如将请求设置为超时
+        "TimeoutValue": 5000
+      },
+      // 限流
+      "RateLimitOptions": {
+        // 白名单
+        "ClientWhitelist": [],
+        // 是否启用限流
+        "EnableRateLimiting": true,
+        // 统计时间段：1s, 5m, 1h, 1d
+        "Period": "1s",
+        // 多少秒之后客户端可以重试
+        "PeriodTimespan": 2,
+        //在统计时间段内允许的最大请求数量
+        "Limit": 1
+      },
+      "HttpHandlerOptions": {
+        "AllowAutoRedirect": false,
+        "UseCookieContainer": false
+      }
+    },
+
+
+    {
+      "ReRouteIsCaseSensitive": false,
+      "DownstreamPathTemplate": "/api/values",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "127.0.0.1",
+          "Port": 5001
+        }
+      ],
+      // 优先级 数值大优先
+      "Priority": 0,
+      "UpstreamPathTemplate": "/a",
+      "UpstreamHttpMethod": [ "Get", "POST" ],
+      // 缓存配置
+      "FileCacheOptions": {
+        "TtlSeconds": 0,
+        "Region": ""
+      },
+      // 路由负载均衡 LeastConnection-将请求发往最空闲的那个服务器 RoundRobin-轮流发送 NoLoadBalance–总是发往第一个请求或者是服务发现
+      "LoadBalancer": "RoundRobin",
+      // 服务质量与熔断
+      "QoSOptions": {
+        // 允许多少个异常请求
+        "ExceptionsAllowedBeforeBreaking": 1,
+        // 熔断的时间，单位为秒
+        "DurationOfBreak": 30,
+        // 如果下游请求的处理时间超过多少则自如将请求设置为超时
+        "TimeoutValue": 5000
+      },
+      // 限流
+      "RateLimitOptions": {
+        // 白名单
+        "ClientWhitelist": [],
+        // 是否启用限流
+        "EnableRateLimiting": true,
+        // 统计时间段：1s, 5m, 1h, 1d
+        "Period": "1s",
+        // 多少秒之后客户端可以重试
+        "PeriodTimespan": 2,
+        //在统计时间段内允许的最大请求数量
+        "Limit": 1
+      },
+      "HttpHandlerOptions": {
+        "AllowAutoRedirect": false,
+        "UseCookieContainer": false
+      }
+    },
+    {
+      "ReRouteIsCaseSensitive": false,
+      "DownstreamPathTemplate": "/api/values",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "127.0.0.1",
+          "Port": 5002
+        }
+      ],
+      "UpstreamPathTemplate": "/b",
+      "UpstreamHttpMethod": [ "Get", "POST" ],
+      "FileCacheOptions": {
+        "TtlSeconds": 0,
+        "Region": ""
+      },
+      "LoadBalancer": "RoundRobin",
+      "QoSOptions": {
+        "ExceptionsAllowedBeforeBreaking": 3,
+        "DurationOfBreak": 30,
+        "TimeoutValue": 5000
+      },
+      "RateLimitOptions": {
+        "ClientWhitelist": [],
+        "EnableRateLimiting": true,
+        "Period": "1s",
+        "PeriodTimespan": 3,
+        "Limit": 3
+      },
+      "HttpHandlerOptions": {
+        "AllowAutoRedirect": false,
+        "UseCookieContainer": false
+      }
+    },
+    // 万能模板
+    {
+      "ReRouteIsCaseSensitive": false,
+      "DownstreamPathTemplate": "/{url}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "127.0.0.1",
+          "Port": 5001
+        }
+      ],
+      "UpstreamPathTemplate": "/{url}",
+      "UpstreamHttpMethod": [ "Get", "POST" ],
+      "FileCacheOptions": {
+        "TtlSeconds": 0,
+        "Region": ""
+      },
+      "LoadBalancer": "LeastConnection",
+      "QoSOptions": {
+        "ExceptionsAllowedBeforeBreaking": 3,
+        "DurationOfBreak": 10,
+        "TimeoutValue": 5000
+      },
+      "RateLimitOptions": {
+        "ClientWhitelist": [],
+        "EnableRateLimiting": true,
+        "Period": "1s",
+        "PeriodTimespan": 3,
+        "Limit": 3
+      },
+      "HttpHandlerOptions": {
+        "AllowAutoRedirect": false,
+        "UseCookieContainer": false
+      }
+    }
+  ],
+  "GlobalConfiguration": {
+    "ServiceDiscoveryProvider": {
+      "Host": "127.0.0.1",
+      "Port": 8500
+    },
+    "RateLimitOptions": {
+      // Http头X-Rate-Limit和Retry-After是否禁用
+      "DisableRateLimitHeaders": false,
+      // QuotaExceedMessage当请求过载被截断时返回的消息
+      "QuotaExceededMessage": "超限",
+      // HttpStatusCode当请求过载被截断时返回的http status
+      "HttpStatusCode": 999
+      // ClientIdHeader用来识别客户端的请求头，默认是“ClientId”
+      //"ClientIdHeader": "Test"
+    }
+  }
+}

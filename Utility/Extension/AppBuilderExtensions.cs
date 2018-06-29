@@ -1,23 +1,9 @@
-﻿/************************************************************************
- * 文件标识：  3fcc9651-b38e-49d4-9cc0-b9610835ef81
- * 项目名称：  Utility
- * 项目描述：  
- * 类 名 称：  AppBuilderExtensions
- * 版 本 号：  v1.0.0.0 
- * 说    明：  
- * 作    者：  尹自强
- * 创建时间：  2018/6/24 16:06:59
- * 更新时间：  2018/6/24 16:06:59
-************************************************************************
- * Copyright @ 尹自强 2018. All rights reserved.
-************************************************************************/
-
-using System;
+﻿using System;
 using Consul;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 
-namespace Utility
+namespace Utility.Extension
 {
     public static class AppBuilderExtensions
     {

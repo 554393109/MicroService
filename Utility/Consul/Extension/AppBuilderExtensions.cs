@@ -1,13 +1,27 @@
-﻿using System;
+﻿/************************************************************************
+ * 文件标识：  36D553B5-E570-4CB3-88AA-BB34E58E9653
+ * 项目名称：  Utility.Consul.Extension
+ * 项目描述：  
+ * 类 名 称：  AppBuilderExtensions
+ * 版 本 号：  v1.0.0.0 
+ * 说    明：  
+ * 作    者：  尹自强
+ * 创建时间：  2018/07/01 16:24:57
+ * 更新时间：  2018/07/01 16:24:57
+************************************************************************
+ * Copyright @ 尹自强 2018. All rights reserved.
+************************************************************************/
+
+using System;
 using Consul;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 
-namespace Utility.Extension
+namespace Utility.Consul.Extension
 {
     public static class AppBuilderExtensions
     {
-        public static IApplicationBuilder RegisterConsul(this IApplicationBuilder app, IApplicationLifetime lifetime, ServiceEntity serviceEntity)
+        public static IApplicationBuilder RegisterConsul(this IApplicationBuilder app, IApplicationLifetime lifetime, Consul.Model.ServiceEntity serviceEntity)
         {
             //请求注册的 Consul 地址
             var consulClient = new ConsulClient(x => x.Address = new Uri($"http://{serviceEntity.ConsulIP}:{serviceEntity.ConsulPort}"));

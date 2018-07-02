@@ -1,13 +1,13 @@
 ﻿/************************************************************************
- * 文件标识：  41788caa-8d4c-4e9d-a1c7-ceab30e893ec
+ * 文件标识：  99DEB9D8-2A71-4D7D-AF03-458E3CE35EC0
  * 项目名称：  Utility.Extension  
  * 项目描述：  
  * 类 名 称：  ObjectExtensions
  * 版 本 号：  v1.0.0.0 
  * 说    明：  
  * 作    者：  尹自强
- * 创建时间：  2018/1/30 16:24:57
- * 更新时间：  2018/1/30 16:24:57
+ * 创建时间：  2018/07/01 16:24:57
+ * 更新时间：  2018/07/01 16:24:57
 ************************************************************************
  * Copyright @ 尹自强 2018. All rights reserved.
 ************************************************************************/
@@ -23,27 +23,28 @@ namespace Utility.Extension
         /// <summary>
         /// URL编码
         /// </summary>
-        /// <param name="obj"></param>
+        /// <param name="obj">源对象</param>
+        /// <param name="need_escape">是否需要Escape编码</param>
         /// <returns></returns>
-        public static Hashtable UrlEscape(this object obj)
+        public static Hashtable ToHashtable(this object obj, bool need_escape = false)
         {
             if (obj == null)
                 throw new ArgumentNullException("obj");
 
-            Hashtable param = JSON.ConvertToType<Hashtable>(obj);
-            Hashtable param_new = new Hashtable();
-            foreach (string key in param.Keys)
+            Hashtable hash_tmp = JSON.ConvertToType<Hashtable>(obj);
+            Hashtable hash = new Hashtable();
+            foreach (string key in hash_tmp.Keys)
             {
                 if (string.IsNullOrWhiteSpace(key))
                     continue;
 
-                if (null == param[key] || string.IsNullOrWhiteSpace(param[key].ToString()))
-                    param_new[key] = param[key];
+                if (hash_tmp[key].IsNullOrWhiteSpace() || need_escape)
+                    hash[key] = hash_tmp[key];
                 else
-                    param_new[key] = Uri.EscapeDataString(param[key].ToString());
+                    hash[key] = Uri.EscapeDataString(hash_tmp[key].ToString());
             }
 
-            return param_new;
+            return hash;
         }
 
         #region 类型判断
@@ -167,5 +168,102 @@ namespace Utility.Extension
         }
 
         #endregion 类型判断
+
+        #region JSON相关
+
+        /// <summary>
+        /// 将对象转换为 JSON 字符串。
+        /// </summary>
+        /// <param name="obj">要序列化的对象</param>
+        /// <param name="formatting">格式化 None = 0, Indented = 1</param>
+        /// <returns></returns>
+        public static string ToJson(this object obj, int formatting = 0)
+        {
+            try
+            {
+                return Newtonsoft.Json.JsonConvert.SerializeObject(obj, formatting: (Newtonsoft.Json.Formatting)formatting);
+            }
+            catch (InvalidOperationException ex)
+            {
+                //LogHelper.Error(ex);
+                throw ex;
+            }
+            catch (ArgumentException ex)
+            {
+                //LogHelper.Error(ex);
+                throw ex;
+            }
+            catch (Exception ex)
+            {
+                //LogHelper.Error(ex);
+                throw ex;
+            }
+        }
+
+        /// <summary>
+        /// 将对象转换为 JSON 字符串。
+        /// </summary>
+        /// <param name="obj">要序列化的对象</param>
+        /// <param name="settings">序列化设置 待封装</param>
+        /// <returns></returns>
+        public static string ToJson(this object obj, Newtonsoft.Json.JsonSerializerSettings settings)
+        {
+            try
+            {
+                settings = settings ?? new Newtonsoft.Json.JsonSerializerSettings() {
+                    NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore,               // 忽略null
+                    DateFormatString = "yyyy-MM-dd HH:mm:ss.fff"                // 格式化DateTime
+                };
+
+                return Newtonsoft.Json.JsonConvert.SerializeObject(obj, settings: settings);
+            }
+            catch (InvalidOperationException ex)
+            {
+                //LogHelper.Error(ex);
+                throw ex;
+            }
+            catch (ArgumentException ex)
+            {
+                //LogHelper.Error(ex);
+                throw ex;
+            }
+            catch (Exception ex)
+            {
+                //LogHelper.Error(ex);
+                throw ex;
+            }
+        }
+
+        /// <summary>
+        /// 将给定对象转换为指定类型。
+        /// 基于Newtonsoft.Json
+        /// </summary>
+        /// <typeparam name="T">obj 将转换成的类型。</typeparam>
+        /// <param name="obj">序列化的 JSON 字符串。</param>
+        /// <returns>已转换为目标类型的对象。</returns>
+        public static T ConvertToType<T>(this object obj)
+        {
+            try
+            {
+                return JSON.Deserialize<T>(JSON.Serialize(obj));
+            }
+            catch (InvalidOperationException ex)
+            {
+                //LogHelper.Error(ex);
+                throw ex;
+            }
+            catch (ArgumentException ex)
+            {
+                //LogHelper.Error(ex);
+                throw ex;
+            }
+            catch (Exception ex)
+            {
+                //LogHelper.Error(ex);
+                throw ex;
+            }
+        }
+
+        #endregion JSON相关
     }
 }

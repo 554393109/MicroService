@@ -1,4 +1,18 @@
-﻿using System;
+﻿/************************************************************************
+ * 文件标识：  FEA5115B-B029-43D5-A796-9B9CCA952B25
+ * 项目名称：  Utility.Extension  
+ * 项目描述：  
+ * 类 名 称：  StringExtension
+ * 版 本 号：  v1.0.0.0 
+ * 说    明：  
+ * 作    者：  尹自强
+ * 创建时间：  2018/07/01 16:24:57
+ * 更新时间：  2018/07/01 16:24:57
+************************************************************************
+ * Copyright @ 尹自强 2018. All rights reserved.
+************************************************************************/
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -36,14 +50,35 @@ namespace Utility.Extension
             return value;
         }
 
-        public static string IsNullOrEmpty(string value, string defaultValue)
+        /// <summary>
+        /// 截取字符串
+        /// 减3位 拼省略号【...】
+        /// </summary>
+        /// <param name="str_original"></param>
+        /// <param name="len">最大长度</param>
+        /// <returns></returns>
+        public static string CutString(this string str_original, int len)
         {
-            if (string.IsNullOrEmpty(value))
-            {
-                return defaultValue;
-            }
-            return value;
+            if (!string.IsNullOrWhiteSpace(str_original) && str_original.Length > len)
+                return str_original.Remove(len - 3) + "...";
+            else
+                return str_original;
         }
+
+        /// <summary>
+        /// 移除文本中控制
+        /// </summary>
+        /// <param name="source"></param>
+        /// <returns></returns>
+        public static string TrimSpace(this string source)
+        {
+            if (source == null)
+                return null;
+
+            return source.Replace(" ", string.Empty);
+        }
+
+
 
         public static string ToFormat(this string value, params object[] args)
         {
@@ -55,10 +90,6 @@ namespace Utility.Extension
 
             return string.Format(value, args);
         }
-
-
-
-
 
         public static string Join(this string[] array, string separator)
         {
@@ -114,23 +145,7 @@ namespace Utility.Extension
             return Convert.ToInt32(value);
         }
 
-
-
-        /// <summary>
-        /// 截取字符串
-        /// 减3位 拼省略号【...】
-        /// </summary>
-        /// <param name="str_original"></param>
-        /// <param name="len">最大长度</param>
-        /// <returns></returns>
-        public static string CutString(this string str_original, int len)
-        {
-            if (!string.IsNullOrWhiteSpace(str_original) && str_original.Length > len)
-                return str_original.Remove(len - 3) + "...";
-            else
-                return str_original;
-        }
-
+        #region 编码相关
 
         /// <summary>
         /// String转Unicode
@@ -198,42 +213,44 @@ namespace Utility.Extension
             return returnBytes;
         }
 
-        //        /// <summary>
-        //        /// 封装System.Web.HttpUtility.UrlEncode
-        //        /// </summary>
-        //        /// <param name="url"></param>
-        //        /// <returns></returns>
-        //#if DEBUG
-        //        [Obsolete("此方法已过期，建议使用Utility.StringExtension.UrlEscape()方法")]
-        //#endif
-        //        public static string UrlEncode(this string url)
-        //        {
-        //            if (url == null)
-        //                return string.Empty;
+        #endregion 编码相关
 
-        //            return System.Web.HttpUtility.UrlEncode(url);
-        //        }
+        #region JSON相关
 
-
-        ///// <summary>
-        ///// 封装System.Web.HttpUtility.UrlDecode
-        ///// </summary>
-        ///// <param name="url"></param>
-        ///// <returns></returns>
-        //public static string UrlDecode(this string url)
-        //{
-        //    if (url == null)
-        //        return string.Empty;
-
-        //    return System.Web.HttpUtility.UrlDecode(url);
-        //}
-
-        public static string TrimSpace(this string source)
+        /// <summary>
+        /// 将指定的 JSON 字符串转换为 T 类型的对象。
+        /// </summary>
+        /// <typeparam name="T">所生成对象的类型。</typeparam>
+        /// <param name="value">要进行反序列化的 JSON 字符串。</param>
+        /// <returns>反序列化的对象。</returns>
+        public static T Deserialize<T>(this string value)
         {
-            if (source == null)
-                return null;
-
-            return source.Replace(" ", string.Empty);
+            try
+            {
+                return Newtonsoft.Json.JsonConvert.DeserializeObject<T>(value);
+            }
+            catch (ArgumentNullException ex)
+            {
+                //LogHelper.Error(ex);
+                throw ex;
+            }
+            catch (ArgumentException ex)
+            {
+                //LogHelper.Error(ex);
+                throw ex;
+            }
+            catch (InvalidOperationException ex)
+            {
+                //LogHelper.Error(ex);
+                throw ex;
+            }
+            catch (Exception ex)
+            {
+                //LogHelper.Error(ex);
+                throw ex;
+            }
         }
+
+        #endregion JSON相关
     }
 }

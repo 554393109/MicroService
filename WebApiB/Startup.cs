@@ -1,15 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
 using Utility;
+using Utility.Extension;
 
 namespace WebApiB
 {
@@ -41,7 +37,7 @@ namespace WebApiB
 
             #region 注册Consul
 
-            app.RegisterConsul(lifetime, new ServiceEntity {
+            app.RegisterConsul(lifetime, new Utility.Consul.Model.ServiceEntity {
                 //ServiceID = Guid.NewGuid().ToString("N"),
                 ServiceID = "0000000000000000000000000000000B",
                 IP = NetworkHelper.LocalIPAddress,

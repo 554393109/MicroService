@@ -24,4 +24,10 @@
     <ProjectReference Include="..\Utility\Utility.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Content Update="config.json">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
 </Project>

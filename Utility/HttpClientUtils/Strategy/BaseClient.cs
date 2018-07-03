@@ -223,7 +223,7 @@ namespace Utility.HttpClientUtils
                                 //LogHelper.Debug(string.Format("HttpClientUtils BaseClient PostAsync：{0}", readTask.Result));
                             });
                         }
-                    }).Wait(millisecondsTimeout: AppConfig.GetValue_Cache("HttpClient_TaskWait").ToInt32());
+                    }).Wait(millisecondsTimeout: 20/*AppConfig.GetValue_Cache("HttpClient_TaskWait").ToInt32()*/);
                 });
             }
             catch (System.Threading.ThreadAbortException ex)

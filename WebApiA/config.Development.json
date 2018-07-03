@@ -1,0 +1,9 @@
+﻿{
+    "SignKey": "WoShiSignKey_222222",
+    "DataBase": {
+        "IP": "127.0.0.1",
+        "Port": "1433",
+        "Account": "sa",
+        "Pwd": "sa"
+    }
+}

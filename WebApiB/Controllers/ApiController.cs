@@ -23,7 +23,6 @@ namespace WebApiB.Controllers
         }
 
         [HttpGet]
-        [Route("api")]
         public IEnumerable<string> Get()
         {
             return new string[] {

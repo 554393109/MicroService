@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using log4net;
 using Microsoft.AspNetCore.Mvc;
+using Utility;
 
 namespace WebApiD.Controllers
 {
@@ -23,9 +25,12 @@ namespace WebApiD.Controllers
         }
 
         [HttpGet]
-        [Route("api")]
         public ActionResult<IEnumerable<string>> Get()
         {
+            ILog logger = LogManager.GetLogger("NETCoreRepository", "NETCorelog4net");
+            if (logger.IsErrorEnabled)
+                logger.Error("iamError");
+
             return new string[] {
                 $"SignKey："
             };

@@ -23,7 +23,6 @@ namespace WebApiC.Controllers
         }
 
         [HttpGet]
-        [Route("api")]
         public ActionResult<IEnumerable<string>> Get()
         {
             return new string[] {

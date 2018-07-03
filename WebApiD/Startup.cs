@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using System.Reflection;
+using log4net.Repository;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
@@ -11,6 +13,11 @@ namespace WebApiD
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
+
+            //var logRepository = log4net.LogManager.GetRepository(Assembly.GetEntryAssembly());
+            var logRepository = log4net.LogManager.CreateRepository("NETCoreRepository");
+            log4net.Config.XmlConfigurator.Configure(logRepository, new System.IO.FileInfo("Conf/log4net.config"));
+            log4net.Config.BasicConfigurator.Configure(logRepository);
         }
 
         public IConfiguration Configuration { get; }

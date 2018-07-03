@@ -19,8 +19,9 @@ namespace WebApiD
 
                 // 此处配置后覆盖前
                 builder
-                .AddJsonFile("config.json", optional: true, reloadOnChange: true)
-                .AddJsonFile($"config.{env.EnvironmentName}.json", optional: true, reloadOnChange: true);
+                .SetBasePath(env.ContentRootPath)
+                .AddJsonFile("/Conf/config.json", optional: true, reloadOnChange: true)
+                .AddJsonFile($"/Conf/config.{env.EnvironmentName}.json", optional: true, reloadOnChange: true);
             });
     }
 }

@@ -58,7 +58,7 @@ namespace Utility.HttpClientUtils
                         httpClient_WechatClient = new HttpClient();
                         httpClient_WechatClient.Timeout = new TimeSpan(0, 0, Timeout);
                         httpClient_WechatClient.DefaultRequestHeaders.Add("KeepAlive", "false");
-                        httpClient_WechatClient.DefaultRequestHeaders.Add("User-Agent", "Cysoft.UnifiedPay");
+                        httpClient_WechatClient.DefaultRequestHeaders.Add("User-Agent", "MicroService");
                         httpClient_WechatClient.DefaultRequestHeaders.Add("DNT", "1");
                     }
                 }

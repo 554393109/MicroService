@@ -63,7 +63,7 @@ namespace Utility.HttpClientUtils
                         httpClient_SANDClient = new HttpClient();
                         httpClient_SANDClient.Timeout = new TimeSpan(0, 0, Timeout);
                         httpClient_SANDClient.DefaultRequestHeaders.Add("KeepAlive", "false");
-                        httpClient_SANDClient.DefaultRequestHeaders.Add("User-Agent", "Cysoft.UnifiedPay");
+                        httpClient_SANDClient.DefaultRequestHeaders.Add("User-Agent", "MicroService");
                         httpClient_SANDClient.DefaultRequestHeaders.Add("DNT", "1");
                     }
                 }

@@ -58,7 +58,7 @@ namespace Utility.HttpClientUtils
                         httpClient_AlipayClient = new HttpClient();
                         httpClient_AlipayClient.Timeout = new TimeSpan(0, 0, Timeout);
                         httpClient_AlipayClient.DefaultRequestHeaders.Add("KeepAlive", "false");
-                        httpClient_AlipayClient.DefaultRequestHeaders.Add("User-Agent", "Cysoft.UnifiedPay");
+                        httpClient_AlipayClient.DefaultRequestHeaders.Add("User-Agent", "MicroService");
                         httpClient_AlipayClient.DefaultRequestHeaders.Add("DNT", "1");
                     }
                 }

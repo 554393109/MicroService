@@ -58,7 +58,7 @@ namespace Utility.HttpClientUtils
                         httpClient_CommonClient = new HttpClient();
                         httpClient_CommonClient.Timeout = new TimeSpan(0, 0, seconds: Timeout);
                         httpClient_CommonClient.DefaultRequestHeaders.Add("KeepAlive", "false");
-                        httpClient_CommonClient.DefaultRequestHeaders.Add("User-Agent", "Cysoft.UnifiedPay");
+                        httpClient_CommonClient.DefaultRequestHeaders.Add("User-Agent", "MicroService");
                         httpClient_CommonClient.DefaultRequestHeaders.Add("DNT", "1");
                     }
                 }

@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Utility;
+using Utility.Consul.Extension;
 using Utility.Extension;
 
 namespace WebApiB

@@ -14,39 +14,14 @@
 
 using System;
 using System.Collections;
+using System.Collections.Generic;
+using System.Text;
 using System.Text.RegularExpressions;
 
 namespace Utility.Extension
 {
     public static class ObjectExtensions
     {
-        /// <summary>
-        /// URL编码
-        /// </summary>
-        /// <param name="obj">源对象</param>
-        /// <param name="need_escape">是否需要Escape编码</param>
-        /// <returns></returns>
-        public static Hashtable ToHashtable(this object obj, bool need_escape = false)
-        {
-            if (obj == null)
-                throw new ArgumentNullException("obj");
-
-            Hashtable hash_tmp = JSON.ConvertToType<Hashtable>(obj);
-            Hashtable hash = new Hashtable();
-            foreach (string key in hash_tmp.Keys)
-            {
-                if (string.IsNullOrWhiteSpace(key))
-                    continue;
-
-                if (hash_tmp[key].IsNullOrWhiteSpace() || need_escape)
-                    hash[key] = hash_tmp[key];
-                else
-                    hash[key] = Uri.EscapeDataString(hash_tmp[key].ToString());
-            }
-
-            return hash;
-        }
-
         #region 类型判断
 
         /// <summary>
@@ -265,5 +240,87 @@ namespace Utility.Extension
         }
 
         #endregion JSON相关
+
+        public static Hashtable ToHashtable(this object obj)
+        {
+            if (obj == null)
+                throw new ArgumentNullException("obj");
+
+            return JSON.ConvertToType<Hashtable>(obj);
+        }
+
+        /// <summary>
+        /// JSON.Serialize(obj)
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
+        public static string ToJson(this object obj)
+        {
+            return JSON.Serialize(obj);
+        }
+
+        /// <summary>
+        /// Serialize(dynamic obj, string root)
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <param name="root">根节点</param>
+        /// <returns></returns>
+        public static string ToXml(this object obj, string root = "xml")
+        {
+            return XML.Serialize(obj, root);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <param name="needEncode"></param>
+        /// <returns></returns>
+        public static string ToQueryString(this object obj, bool needEncode = true)
+        {
+            var builder = new StringBuilder();
+            IDictionary<string, string> parameters_temp;
+
+            #region 转换为IDictionary<string, string>
+
+            if (obj is IDictionary<string, string>)
+            {
+                parameters_temp = obj as IDictionary<string, string>;
+            }
+            if (obj is IDictionary)
+            {
+                var parameters = obj as IDictionary;
+                parameters_temp = new Dictionary<string, string>();
+                foreach (DictionaryEntry item in parameters)
+                    parameters_temp.Add(item.Key?.ToString(), item.Value?.ToString() ?? string.Empty);
+            }
+            else
+            {
+                parameters_temp = JSON.ConvertToType<Dictionary<string, string>>(obj);
+            }
+
+            #endregion 转换为IDictionary<string, string>
+
+            #region 拼接QueryString
+
+            var enumerator = parameters_temp.GetEnumerator();
+            while (enumerator.MoveNext())
+            {
+                string key = enumerator.Current.Key;
+                string val = enumerator.Current.Value;
+
+                if (key.IsNullOrWhiteSpace())
+                    continue;
+
+                if (needEncode)
+                    builder.Append("&").Append(key).Append("=").Append(Uri.EscapeDataString(val));
+                else
+                    builder.Append("&").Append(key).Append("=").Append(val);
+            }
+
+            #endregion 拼接QueryString
+
+            return builder.ToString().TrimStart('&');
+        }
     }
 }

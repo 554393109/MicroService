@@ -11,6 +11,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Utility;
+using Utility.Consul.Extension;
+using Utility.Consul.Model;
 
 namespace WebApiC
 {

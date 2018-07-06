@@ -116,6 +116,7 @@ namespace Utility.Extension
 
         /// <summary>
         /// 遍历并返回URL参数格式,a=1&b=2
+        /// 忽略value为空的项
         /// </summary>
         /// <param name="hash"></param>
         /// <returns></returns>
@@ -133,16 +134,16 @@ namespace Utility.Extension
                 string key = current.Key;
                 current = enumerator.Current;
                 string val = current.Value?.ToString();
-                if (!string.IsNullOrWhiteSpace(key) && !string.IsNullOrWhiteSpace(val))
+                if (!key.IsNullOrWhiteSpace() && !val.IsNullOrWhiteSpace())
                 {
                     if (needEncode)
-                        builder.Append(key).Append("=").Append(Uri.EscapeDataString(val)).Append("&");
+                        builder.Append("&").Append(key).Append("=").Append(Uri.EscapeDataString(val));
                     else
-                        builder.Append(key).Append("=").Append(val).Append("&");
+                        builder.Append("&").Append(key).Append("=").Append(val);
                 }
             }
 
-            return builder.ToString().TrimEnd('&');
+            return builder.ToString().TrimStart('&');
         }
 
         public static Hashtable RemoveEmpty(this Hashtable hash)

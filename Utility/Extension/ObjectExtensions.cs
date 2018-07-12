@@ -244,10 +244,7 @@ namespace Utility.Extension
 
         public static string ValueOrEmpty(this object obj)
         {
-            if (obj == null)
-                return string.Empty;
-
-            return obj.ToString();
+            return obj?.ToString() ?? string.Empty
         }
 
         public static Hashtable ToHashtable(this object obj)

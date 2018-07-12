@@ -241,6 +241,15 @@ namespace Utility.Extension
 
         #endregion JSON相关
 
+
+        public static string ValueOrEmpty(this object obj)
+        {
+            if (obj == null)
+                return string.Empty;
+
+            return obj.ToString();
+        }
+
         public static Hashtable ToHashtable(this object obj)
         {
             if (obj == null)
